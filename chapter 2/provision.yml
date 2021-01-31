@@ -20,7 +20,7 @@
         wait_timeout: 500
         exact_count: 1
         count_tag:
-          inventory_host: 
+          inventory_host: " {{ instance_name | default ('') }}"
         profile: "{{ boto_version }}"
         region: "{{ aws_region }}"
       register: created_instance
@@ -32,7 +32,7 @@
         ansible_user: centos
         host_key_checking: false
       when: item.1.instance is defined
-      with_indexed_items: "{{ created_instance.results }}"
+      with_items: "{{ created_instance.results }}"
 
 - hosts: vagrant
   gather_facts: false
