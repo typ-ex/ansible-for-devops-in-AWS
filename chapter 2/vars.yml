@@ -1,6 +1,7 @@
 ---
 ssh_key: ansible
-instance_name: vagrant
+instance_name: vagrant-chrony
+group_name: vagrant
 security_group: default
 build_type: t2.micro
 image_os: ami-06cf02a98a61f9f5e
