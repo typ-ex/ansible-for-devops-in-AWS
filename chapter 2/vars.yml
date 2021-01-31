@@ -5,5 +5,5 @@ group_name: vagrant
 security_group: default
 build_type: t2.micro
 image_os: ami-06cf02a98a61f9f5e
-boto_version: boto3
+boto_version: default
 aws_region: us-east-1
