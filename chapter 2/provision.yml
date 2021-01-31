@@ -10,8 +10,10 @@
     - name: Provision EC2 instance
       ec2:
         key_name: "{{ ssh_key }}"
+        instance_tags:
+          Name: "{{ instance_name }}"
         group: "{{ security_group }}"
-        instance_type: "{{ instance_image }}"
+        instance_type: "{{ build_type }}"
         image: "{{ image_os }}"
         wait: yes
         wait_timeout: 500
@@ -27,7 +29,7 @@
         ansible_user: centos
         host_key_checking: false
       when: item.1.instance is defined
-      with_indexed_items: "{{ created_instance.results }}"
+      with_items: "{{ created_instance.results }}"
 
 - hosts: aws
   gather_facts: false
