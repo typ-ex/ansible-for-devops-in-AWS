@@ -19,6 +19,8 @@
         wait: yes
         wait_timeout: 500
         exact_count: 1
+        count_tag:
+          inventory_host: 
         profile: "{{ boto_version }}"
         region: "{{ aws_region }}"
       register: created_instance
@@ -26,13 +28,13 @@
     - name: Add instance to inventory file
       add_host:
         name: "{{ item.1.tagged_instances.0.public_ip }}"
-        groups: "aws,{{ item.1.item.group }},{{ item.1.item.name }}"
+        groups: "vagrant,{{ item.1.item.group }},{{ item.1.item.name }}"
         ansible_user: centos
         host_key_checking: false
       when: item.1.instance is defined
-      with_items: "{{ created_instance.results }}"
+      with_indexed_items: "{{ created_instance.results }}"
 
-- hosts: aws
+- hosts: vagrant
   gather_facts: false
 
   tasks:
