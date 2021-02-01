@@ -32,6 +32,7 @@
         groups: "vagrant,{{ group_name }},{{ instance_name }}"
         ansible_user: centos
         host_key_checking: false
+      with_items: "{{ created_instance.results }}"
 
 - hosts: vagrant
   gather_facts: false
