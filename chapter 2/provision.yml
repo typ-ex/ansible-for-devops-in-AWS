@@ -33,7 +33,7 @@
         groups: "vagrant,{{ item.1.item.group }},{{ item.1.item.name }}"
         ansible_user: centos
         host_key_checking: false
-      when: intem.1.instances is defined
+      when: item.1.instances is defined
       with_items: "{{ created_instance.results }}"
 
 - hosts: vagrant
