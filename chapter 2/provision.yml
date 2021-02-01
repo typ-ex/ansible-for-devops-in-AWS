@@ -34,7 +34,7 @@
         ansible_user: centos
         host_key_checking: false
       when: item.1.instances is defined
-      with_items: "{{ created_instance.results }}"
+      with_indexed_items: "{{ created_instance.results }}"
 
 - hosts: vagrant
   gather_facts: false
