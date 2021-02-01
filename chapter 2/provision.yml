@@ -11,27 +11,29 @@
       ec2:
         key_name: "{{ ssh_key }}"
         instance_tags:
-          Name: "{{ instance_name }}"
-          inventory_group: "{{ group_name }}"
-          inventory_host: "{{ instance_name }}"
-        group: "{{ security_group }}"
+          Name: "{{ item.name }}"
+          inventory_group: "{{ item.group }}"
+          inventory_host: "{{ item.name }}"
+        group: "{{ item.security_group }}"
         instance_type: "{{ build_type }}"
         image: "{{ image_os }}"
         wait: yes
         wait_timeout: 500
         exact_count: 1
         count_tag:
-          inventory_host: " {{ instance_name | default ('') }}"
+          inventory_host: " {{ item.name | default ('') }}"
         profile: "{{ boto_version }}"
         region: "{{ aws_region }}"
       register: created_instance
+      with_items: "{{ instances }}"
 
     - name: Add instance to inventory file
       add_host:
         name: "{{ item.1.tagged_instances.0.public_ip }}"
-        groups: "vagrant,{{ group_name }},{{ instance_name }}"
+        groups: "vagrant,{{ item.1.item.group }},{{ item.1.item.name }}"
         ansible_user: centos
         host_key_checking: false
+      when: intem.1.instances is defined
       with_items: "{{ created_instance.results }}"
 
 - hosts: vagrant
