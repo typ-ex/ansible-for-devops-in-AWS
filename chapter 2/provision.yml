@@ -13,6 +13,7 @@
         instance_tags:
           Name: "{{ instance_name }}"
           inventory_group: "{{ group_name }}"
+          inventory_host: "{{ instance_name }}"
         group: "{{ security_group }}"
         instance_type: "{{ build_type }}"
         image: "{{ image_os }}"
@@ -28,11 +29,9 @@
     - name: Add instance to inventory file
       add_host:
         name: "{{ item.1.tagged_instances.0.public_ip }}"
-        groups: "vagrant,{{ item.1.item.group }},{{ item.1.item.name }}"
+        groups: "vagrant,{{ group_name }},{{ instance_name }}"
         ansible_user: centos
         host_key_checking: false
-      when: item.1.instance is defined
-      with_items: "{{ created_instance.results }}"
 
 - hosts: vagrant
   gather_facts: false
