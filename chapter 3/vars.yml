@@ -1,0 +1,23 @@
+---
+ssh_key: ansible
+build_type: t2.micro
+image_os: ami-01ca03df4a6012157
+boto_version: default
+aws_region: us-east-1
+
+instances:
+  - name: orc-app1.test
+    group: "app", "multi"
+    security_group: ["default"]
+    private_ip: 172.31.60.4
+
+
+  - name: orc-app2.test
+    group: "app", "multi"
+    security_group: ["default"]
+    private_ip: 172.31.60.5
+
+  - name: orc-db.test
+    group: "db", "multi"
+    security_group: ["default"]
+    private_ip: 172.31.60.6
