@@ -10,14 +10,17 @@ instances:
     group: '"app", "multi"'
     security_group: ["default"]
     private_ip: 172.31.60.5
+    subnet_id: subnet-083e556fb25ad90f0
 
 
   - name: orc-app2.test
     group: '"app", "multi"'
     security_group: ["default"]
     private_ip: 172.31.60.6
+    subnet_id: subnet-083e556fb25ad90f0
 
   - name: orc-db.test
     group: '"db", "multi"'
     security_group: ["default"]
     private_ip: 172.31.60.7
+    subnet_id: subnet-083e556fb25ad90f0
