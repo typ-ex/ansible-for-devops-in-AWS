@@ -24,7 +24,7 @@
           inventory_host: "{{ item.name }}"
         profile: "{{ boto_version }}"
         region: "{{ aws_region }}"
-        private_ip: "{{ private_ip }}"
+        private_ip: "{{ item.private_ip }}"
       register: created_instances
       with_items: "{{ instances }}"
 
