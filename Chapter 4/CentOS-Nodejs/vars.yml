@@ -1,0 +1,13 @@
+---
+ssh_key: ansible
+build_type: t2.micro
+image_os: ami-00e87074e52e6c9f9
+boto_version: default
+aws_region: us-east-1
+
+instance:
+  - name: nodejs-app
+    group:
+      - centOS
+    security_group: ["default"]
+    
