@@ -5,7 +5,7 @@
 
   vars_files:
     - vars.yml
-  
+
   tasks:
     - name: Provision EC2 instance
       ec2:
@@ -13,14 +13,14 @@
         instance_tags:
           Name: "{{ item.name }}"
           inventory_group: "{{ item.group }}"
-          inventory_host: "{{ item.name }}"
+          inventory_host:  "{{ item.name }}"
         group: "{{ item.security_group }}"
         instance_type: "{{ build_type }}"
         image: "{{ image_os }}"
         wait: yes
         wait_timeout: 500
         exact_count: 1
-        count_tag:
+        count_taqg:
           inventory_host: "{{ item.name }}"
         profile: "{{ boto_version }}"
         region: "{{ aws_region }}"

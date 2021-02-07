@@ -3,7 +3,7 @@
   become: true
 
   vars_files:
-    - vars.yml
+    - playbook_vars.yml
 
   pre_tasks:
     - name: Update apt cache if needed.
