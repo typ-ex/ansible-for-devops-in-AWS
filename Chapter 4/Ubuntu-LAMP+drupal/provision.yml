@@ -31,7 +31,7 @@
       add_host:
         name: "{{ item.1.tagged_instances.0.public_ip }}"
         group: "ubuntu,{{ item.1.item.group }},{{ item.1.item.name }}"
-        ansible_user: ec2-user
+        ansible_user: ubuntu
         host_key_checking: false
       when: item.1.instances is defined
       with_indexed_items: "{{ created_instance.results }}"
