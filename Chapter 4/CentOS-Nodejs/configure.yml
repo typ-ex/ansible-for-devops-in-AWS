@@ -19,9 +19,6 @@
         name: "https://rpms.remirepo.net/enterprise/remi-release-7.rpm"
         state: present
 
-    - name: Ensure firewalld is stopped (testing purposes).
-      service: name=firewalld state=stopped
-
     - name: Install Node.js and npm.
       yum: name=npm state=present enablerepo=epel
 
