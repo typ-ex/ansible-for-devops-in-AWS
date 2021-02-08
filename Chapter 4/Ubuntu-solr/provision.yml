@@ -20,7 +20,7 @@
         wait: yes
         wait_timeout: 500
         exact_count: 1
-        count_taqg:
+        count_tag:
           inventory_host: "{{ item.name }}"
         profile: "{{ boto_version }}"
         region: "{{ aws_region }}"
