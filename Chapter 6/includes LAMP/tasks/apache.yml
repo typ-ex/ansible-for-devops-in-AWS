@@ -1,7 +1,7 @@
 ---
 - name: Enable apache rewrite module (for drupal).
-    apache2_module: name=rewrite state=present
-    notify: restart apache
+  apache2_module: name=rewrite state=present
+  notify: restart apache
 
 - name: add apache virtualhost for drupal
   template:
@@ -12,15 +12,14 @@
     mode: 0644
   notify: restart apache
 
-- name: Symlink drupal virtualhost to sites-enabled
-  file:
-    src: "/etc/apache2-sites-available/{{ domain }}.test.conf"
-    dest: "/etc/apache2/sites-enabled/{{ domain }}.test.conf"
-    state: link
+- name: Enable the Drupal site
+  command: >
+    a2ensite {{ domain }}.test
+    creates=/etc/apache2/sites-enabled/{{ domain }}.test.conf
   notify: restart apache
 
-- name: Remove default virtualhost file.
-  file:
-    path: "/etc/apache2/sites-enabled/000-default.conf"
-    state: absent
+- name: Disable the default site.
+  command: >
+    a2dissite 000-default
+    removes=/etc/apache2/sites-enabled/000-default.conf
   notify: restart apache

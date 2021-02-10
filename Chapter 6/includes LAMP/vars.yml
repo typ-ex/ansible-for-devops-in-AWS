@@ -6,7 +6,7 @@ boto_version: default
 aws_region: us-east-1
 
 instance:
-  name: lamp
-  group:
-    - ubuntu
-  security_group: ["default"]
+  - name: lamp
+    group:
+      - ubuntu
+    security_group: ["default"]

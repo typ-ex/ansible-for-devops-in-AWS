@@ -6,28 +6,35 @@
     dest: "{{ drupal_core_path }}"
   register: git_checkout
 
-- name: Ensure Drupal codebase is owned by www-data
+- name: Ensure Drupal docroot exists.
   file:
     path: "{{ drupal_core_path }}"
+    state: directory
     owner: www-data
     group: www-data
-    recurse: true
-  when: git_checkout.changed | bool
 
-- name: Install drupal dependencies with Composer.
-  command: >
-    /usr/local/bin/composer install
-    chdir={{ drupal_core_path }}
-    creates={{ drupal_core_path }}/vendor/autoload.php
-  become_user: www-data
+- name: Check if Drupal project already exists.
+  stat:
+    path: "{{ drupal_core_path }}/composer.json"
+  register: drupal_composer_json
 
-- name: Install drupal
+- name: Create drupal project.
+  composer:
+    command: create-project
+    arguments: drupal/recommended-project "{{ drupal_core_path }}"
+    working_dir: "{{ drupal_core_path }}"
+    no_dev: true
+  become: www-data
+  when: not drupal_composer_json.stat.exists
+
+- name: Install drupal.
   command: >
-    drush si -y --site-name="{{ drupal_site_name }}"
+    vendor/bin/drush si -y --site-name="{{ drupal_site_name }}"
     --account-name=admin
     --account-pass=admin
     --db-url=mysql://{{ domain }}:1234@localhost/{{ domain }}
-    --root={{ drupal_core_path }}
-    creates={{ drupal_core_path }}/sites/default/settings.php
+    --root={{ drupal_core_path }}/web
+    chdir={{ drupal_core_path }}
+    creates={{ drupal_core_path }}/web/sites/default/settings.php
   notify: restart apache
   become_user: www-data
