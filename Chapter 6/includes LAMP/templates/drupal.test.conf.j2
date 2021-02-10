@@ -3,8 +3,8 @@
   ServerName {{ domain }}.test
   ServerAlias www.{{ domain }}.test
   DocumentRoot {{ drupal_core_path }}/web
-  <Director "{{ drupal_core_path }}/web">
+  <Directory "{{ drupal_core_path }}/web">
     Options FollowSymLinks Indexes
     AllowOverride AllowOverride
-  </Director>
+  </Directory>
 </VirtualHost>
