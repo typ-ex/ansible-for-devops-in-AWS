@@ -7,7 +7,7 @@ filebeat_output_logstash_hosts:
   - "logs.test:5044"
 
 filebeat_ssl_key_file: elk-example.p8
-filebeat_ssl_certificate:file: elk-example.crt
+filebeat_ssl_certificate_file: elk-example.crt
 filebeat_ssl_insecure: "true"
 
 filebeat_inputs:

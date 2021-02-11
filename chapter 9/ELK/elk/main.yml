@@ -1,5 +1,6 @@
 ---
-- hosts: logs
+- hosts: _logs
+  become: yes
   gather_facts: yes
 
   vars_files:

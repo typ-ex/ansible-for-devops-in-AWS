@@ -1,8 +1,9 @@
 ---
-ssh_key = ansible
+ssh_key: ansible
 image_os: ami-03d315ad33b9d49c4
-boto_version = default
-aws_region = us-east-1
+boto_version: default
+aws_region: us-east-1
+subnet_id: subnet-0a2d81f5c6dd4180e
 
 instances:
   - name: logs.test
