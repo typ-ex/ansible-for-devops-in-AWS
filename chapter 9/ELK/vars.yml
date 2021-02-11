@@ -6,14 +6,18 @@ aws_region = us-east-1
 
 instances:
   - name: logs.test
-    group: logs
+    group:
+      - logs
+      - ubuntu
     security_group:
       - default
     build_type: t2.medium
     private_address: 172.31.9.90
 
   - name: web.test
-    group: web
+    group:
+      - web
+      - ubuntu
     security_group:
       - default
     build_type: t2.micro
