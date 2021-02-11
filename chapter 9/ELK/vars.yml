@@ -1,0 +1,20 @@
+---
+ssh_key = ansible
+image_os: ami-03d315ad33b9d49c4
+boto_version = default
+aws_region = us-east-1
+
+instances:
+  - name: logs.test
+    group: logs
+    security_group:
+      - default
+    build_type: t2.medium
+    private_address: 172.31.9.90
+
+  - name: web.test
+    group: web
+    security_group:
+      - default
+    build_type: t2.micro
+    private_address: 172.31.9.91
