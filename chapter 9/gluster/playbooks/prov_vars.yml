@@ -1,5 +1,5 @@
 ---
-ssh_key: ansible_user
+ssh_key: ansible
 image_os: ami-03d315ad33b9d49c4
 subnet_id: subnet-04ca8bfe54103ddb3
 boto_version: default
@@ -7,7 +7,7 @@ aws_region: us-east-1
 build_type: t2.micro
 
 security_group:
-  - name: gluster
+  - name: gluster-sg
     rules:
       - proto: tcp
         from_port: 22
@@ -18,24 +18,24 @@ security_group:
         to_port: 111
         cidr_ip: 0.0.0.0/0
       - proto: tcp
+        from_port: 2049
+        to_port: 2049
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
         from_port: 24007
         to_port: 24007
         cidr_ip: 0.0.0.0/0
       - proto: tcp
-        from_port: 24008
-        to_port: 24008
+        from_port: 38465
+        to_port: 38465
         cidr_ip: 0.0.0.0/0
       - proto: tcp
-        from_port: 24009
-        to_port: 24009
+        from_port: 38466
+        to_port: 38466
         cidr_ip: 0.0.0.0/0
       - proto: tcp
-        from_port: 24010
-        to_port: 24010
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        from_port: 24011
-        to_port: 24011
+        from_port: 38467
+        to_port: 38467
         cidr_ip: 0.0.0.0/0
       - proto: tcp
         from_port: 49152
@@ -49,7 +49,6 @@ security_group:
         from_port: 111
         to_port: 111
         cidr_ip: 0.0.0.0/0
-    rules_egress: []
 
 instances:
   - name: gluster1

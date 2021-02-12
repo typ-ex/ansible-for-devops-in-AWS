@@ -13,7 +13,6 @@
         description: Example gluster group
         state: present
         rules: "{{ item.rules }}"
-        rules_egress: "{{ item.rules_egress }}"
         profile: "{{ boto_version }}"
         region: "{{ aws_region }}"
       with_items: "{{ security_group }}"
@@ -43,7 +42,7 @@
     - name: Add instance to inventory file
       add_host:
         name: "{{ item.1.tagged_instances.0.public_ip }}"
-        group: "{{gluster,{{ item.1.item.group }},{{ item.1.item.name }}"
+        group: "gluster,{{ item.1.item.group }},{{ item.1.item.name }}"
         ansible_user: ubuntu
         host_key_checking: false
       when: item.1.instances is defined
