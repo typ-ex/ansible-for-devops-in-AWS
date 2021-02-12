@@ -9,7 +9,7 @@
   tasks:
     - name: Create gluster security group
       ec2_group:
-        name: "{{ item.security_group }}"
+        name: "{{ item.name }}"
         description: Example gluster group
         state: present
         rules: "{{ item.rules }}"
@@ -17,7 +17,7 @@
         profile: "{{ boto_version }}"
         region: "{{ aws_region }}"
       with_items: "{{ security_group }}"
-      
+
     - name: Provision EC2 instances
       ec2:
         key_name: "{{ ssh_key }}"
