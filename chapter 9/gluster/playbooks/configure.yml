@@ -10,17 +10,6 @@
     - geerlingguy.glusterfs
 
   tasks:
-    - name: Create gluster security group
-      ec2_group:
-        name: "{{ item.security_group }}"
-        description: Example gluster group
-        state: present
-        rules: "{{ item.rules }}"
-        rules_egress: "{{ item.rules_egress }}"
-        profile: "{{ boto_version }}"
-        region: "{{ aws_region }}"
-      with_items: "{{ security_group }}"
-
     - name: Ensure Gluster brick and mount directories exist.
       file: 
         path: "{{ item }}"

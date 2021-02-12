@@ -56,12 +56,12 @@ instances:
     group:
       - gluster
     security_group:
-      - gluster
+      - gluster-sg
     private_address: 172.31.23.2
 
   - name: gluster2
     group:
       - gluster
     security_group:
-      - gluster
+      - gluster-sg
     private_address: 172.31.23.3
