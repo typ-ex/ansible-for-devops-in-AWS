@@ -1,0 +1,15 @@
+---
+ssh_key: ansible
+build_type: t2.medium
+image_os: ami-03d315ad33b9d49c4
+subnet_id: subnet-00e7b148bf41e5845
+boto_version: default
+aws_region: us-east-1
+
+instances:
+  - name: rails-demo
+    group: rails
+    security_group:
+      - default
+    private_address: 172.31.33.7
+    

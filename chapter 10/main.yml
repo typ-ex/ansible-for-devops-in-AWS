@@ -1,0 +1,4 @@
+---
+  - import_playbook: playbooks/provison-aws.yml
+  - import_playbook: playbooks/provision-rails.yml
+  - import_playbook: playbooks/deploy.yml
