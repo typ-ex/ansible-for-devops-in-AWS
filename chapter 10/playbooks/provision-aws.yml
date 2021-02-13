@@ -1,42 +1,42 @@
 ---
-hosts: localhosts
-connection: local
-gather_facts: false
+- hosts: localhost
+  connection: local
+  gather_facts: false
 
-vars_files:
+  vars_files:
   - vars/aws.yml
 
-tasks:
-  - name: configure EC2 instance
-    ec2:
-      key_name: "{{ ssh_key }}"
-      instance_tags:
-        Name: "{{ item.name }}"
-        inventory_group: "{{ item.group }}"
-        inventory_host: "{{ item.name }}"
-      group: "{{ item.security_group }}"
-      instance_type: "{{ build_type }}"
-      image: "{{ image_os }}"
-      private_ip: "{{ item.private_address }}"
-      vpc_subnet_id: "{{ subnet_id }}"
-      wait: yes
-      wait_timeout: 500
-      exact_count: 1
-      count_tag:
-        inventory_host: "{{ item.name }}"
-      profile: "{{ boto_version }}"
-      region: "{{ aws_region }}"
-    register: created_instance
-    with_items: "{{ instance }}"
+  tasks:
+    - name: configure EC2 instance
+      ec2:
+        key_name: "{{ ssh_key }}"
+        instance_tags:
+          Name: "{{ item.name }}"
+          inventory_group: "{{ item.group }}"
+          inventory_host: "{{ item.name }}"
+        group: "{{ item.security_group }}"
+        instance_type: "{{ build_type }}"
+        image: "{{ image_os }}"
+        private_ip: "{{ item.private_address }}"
+        vpc_subnet_id: "{{ subnet_id }}"
+        wait: yes
+        wait_timeout: 500
+        exact_count: 1
+        count_tag:
+          inventory_host: "{{ item.name }}"
+        profile: "{{ boto_version }}"
+        region: "{{ aws_region }}"
+      register: created_instance
+      with_items: "{{ instance }}"
 
-  - name: Add instance to inventory file
-    add_host:
-      name: "{{ item.1.tagged_instances.0.public_ip }}"
-      group: "rails,{{ item.1.item.group }},{{ item.1.item.name }}"
-      ansible_user: ubuntu
-      host_key_checking: false
-    when: item.1.instances is defined
-    with_indexed_items: "{{ created_instance.results }}"
+    - name: Add instance to inventory file
+      add_host:
+        name: "{{ item.1.tagged_instances.0.public_ip }}"
+        group: "rails,{{ item.1.item.group }},{{ item.1.item.name }}"
+        ansible_user: ubuntu
+        host_key_checking: false
+      when: item.1.instances is defined
+      with_indexed_items: "{{ created_instance.results }}"
 
 - hosts: rails
   gather_facts: false
