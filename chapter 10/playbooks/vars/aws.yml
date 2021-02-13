@@ -6,10 +6,9 @@ subnet_id: subnet-00e7b148bf41e5845
 boto_version: default
 aws_region: us-east-1
 
-instances:
+instance:
   - name: rails-demo
     group: rails
     security_group:
       - default
     private_address: 172.31.33.7
-    

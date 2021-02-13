@@ -41,12 +41,6 @@
 - hosts: rails
   gather_facts: false
 
-  roles:
-    - geerlingguy.git
-    - geerlingguy.nodejs
-    - geerlingguy.ruby
-    - geerlingguy.passenger
-
   tasks:
     - name: EC2 is up and visible via ssh
       wait_for_connection:
