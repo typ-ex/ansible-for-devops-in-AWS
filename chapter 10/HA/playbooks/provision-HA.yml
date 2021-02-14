@@ -21,9 +21,9 @@
 
   vars:
     haproxy_backend_servers:
-      - name: 172.31.4.3
+      - name: 172.31.4.2
         address: 172.31.4.3:80
-      - name: 172.31.4.4
+      - name: 172.31.4.3
         address: 172.31.4.4:80
 
   roles:
