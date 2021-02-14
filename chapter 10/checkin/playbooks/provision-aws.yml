@@ -4,7 +4,7 @@
   gather_facts: false
 
   vars_files:
-    - aws.yml
+    - vars/aws.yml
 
   tasks:
     - name: Provision ec2 instances
@@ -12,7 +12,7 @@
         key_name: "{{ ssh_key }}"
         instance_tags:
           Name: "{{ item.name }}"
-          inventory_group: "{{ ansible_group }}"
+          inventory_group: "{{ item.group }}"
           inventory_name: "{{ item.name }}"
         group: "{{ security_group }}"
         instance_type: "{{ build_type }}"
@@ -32,7 +32,7 @@
     - name: Add instance to inventory file
       add_host:
         name: "{{ item.1.tagged_instances.0.public_ip }}"
-        group: "{{checkin,{{ item.1.item.group }},{{ item.1.item.name }}"
+        group: "checkin,{{ item.1.item.group }},{{ item.1.item.name }}"
         ansible_user: ubuntu
         host_key_checking: false
       when: item.1.instances is defined

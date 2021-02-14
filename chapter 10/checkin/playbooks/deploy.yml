@@ -2,9 +2,10 @@
 - hosts: checkin
   gather_facts: no
   become: yes
+  serial: 2
 
   vars_files:
-    - vars/deploy-vars.yml
+    - vars/deploy.yml
 
   tasks:
     - name: Ensure node.js api app is present.
