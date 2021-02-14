@@ -1,0 +1,22 @@
+---
+ssh_key: ansible
+build_type: t2.micro
+image_os: ami-03d315ad33b9d49c4
+subnet_id: subnet-0a2d81f5c6dd4180e
+boto_version: default
+aws_region: us-east-1
+ansible_group: checkin
+security_group: default
+
+instances:
+  - name: nodejs1
+    private_address: 172.31.3.2
+
+  - name: nodejs2
+    private_address: 172.31.3.3
+
+  - name: nodejs3
+    private_address: 172.31.3.4
+
+  - name: nodejs4
+    private_address: 172.31.3.5

@@ -1,0 +1,46 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - aws.yml
+
+  tasks:
+    - name: Provision ec2 instances
+      ec2:
+        key_name: "{{ ssh_key }}"
+        instance_tags:
+          Name: "{{ item.name }}"
+          inventory_group: "{{ ansible_group }}"
+          inventory_name: "{{ item.name }}"
+        group: "{{ security_group }}"
+        instance_type: "{{ build_type }}"
+        image: "{{ image_os }}"
+        private_ip: "{{ item.private_address }}"
+        vpc_subnet_id: "{{ subnet_id }}"
+        wait: yes
+        wait_timeout: 500
+        exact_count: 1
+        count_tag:
+          inventory_host: "{{ item.name }}"
+        profile: "{{ boto_version }}"
+        region: "{{ aws_region }}"
+      register: created_instances
+      with_items: "{{ instances }}"
+
+    - name: Add instance to inventory file
+      add_host:
+        name: "{{ item.1.tagged_instances.0.public_ip }}"
+        group: "{{checkin,{{ item.1.item.group }},{{ item.1.item.name }}"
+        ansible_user: ubuntu
+        host_key_checking: false
+      when: item.1.instances is defined
+      with_indexed_items: "{{ created_instances.results }}"
+
+- hosts: checkin
+  gather_facts: false
+
+  tasks:
+    - name: EC2 is up and visible via ssh
+      wait_for_connection:

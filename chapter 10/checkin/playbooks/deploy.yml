@@ -1,0 +1,48 @@
+---
+- hosts: checkin
+  gather_facts: no
+  become: yes
+
+  vars_files:
+    - vars/deploy-vars.yml
+
+  tasks:
+    - name: Ensure node.js api app is present.
+      git:
+        repo: "{{ app_repository }}"
+        version: "{{ app_version }}"
+        dest: "{{ app_directory }}"
+        accept_hostkey: true
+      register: app_updated
+      notify: restart forever apps
+
+    - name: Stop all running instances of the app
+      command: "forever stopall"
+      when: app_updated.changed
+
+    - name: Ensure node.js api app dependencies are present.
+      npm: "path={{ app_directory }}"
+      when: app_updated.changed
+
+    - name: run node.js api app tests
+      command: "npm test chdir={{ app_directory }}"
+      when: app_updated.changed
+
+    - name: Get list of all running node.js apps.
+      command: forever list
+      register: forever_list
+      changed_when: false
+
+    - name: Ensure node.js api app is started
+      command: "forever start {{ app_directory }}/app.js"
+      when: "forever_list.stdout.find('app.js') == -1"
+
+    - name: Add cron entry to start node.js api app on reboot
+      cron:
+        name: "Start node.js api app"
+        special_time: reboot
+        job: "forever start {{ app_directory }}/app.js"
+
+  handlers:
+    - name: restart forever apps
+      command: "forever restartall"
