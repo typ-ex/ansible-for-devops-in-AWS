@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: _rails
   become: yes
 
   vars_files:
