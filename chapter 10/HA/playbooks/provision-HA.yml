@@ -1,6 +1,6 @@
 ---
 - name: Firewall configuration.
-  hosts: deployments
+  hosts: _deployments
   become: yes
 
   vars:
@@ -16,21 +16,21 @@
     - geerlingguy.firewall
 
 - name: HA Proxy load balancer security_group
-    hosts: balancer
-    become: yes
+  hosts: _balancer
+  become: yes
 
   vars:
     haproxy_backend_servers:
       - name: 172.31.4.2
-        address: 172.31.4.3:80
+        address: 172.31.4.2:80
       - name: 172.31.4.3
-        address: 172.31.4.4:80
+        address: 172.31.4.3:80
 
   roles:
     - geerlingguy.haproxy
 
 - name: Apache webserver setup
-  hosts: app
+  hosts: _app
   become: yes
 
   roles:

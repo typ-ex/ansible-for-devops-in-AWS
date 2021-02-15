@@ -1,28 +1,31 @@
 ssh_key: ansible
 build_type: t2.micro
 image_os: ami-03d315ad33b9d49c4
-vpc_subnet_id: subnet-0a2d81f5c6dd4180e
+subnet_id: subnet-0a2d81f5c6dd4180e
 boto_version: default
 aws_region: us-east-1
 
 instances:
   - name: app1
-    group: HA
-    security_group:
+    group:
       - app
       - deployments
+    security_group:
+      - default
     private_address: 172.31.4.2
   
   - name: app2
-    group: HA
-    security_group:
+    group:
       - app
       - deployments
+    security_group:
+      - default
     private_address: 172.31.4.3
 
   - name: bal1
-    group: HA
-    security_group:
+    group:
       - balancer
       - deployments
+    security_group:
+      - default
     private_address: 172.31.4.4
