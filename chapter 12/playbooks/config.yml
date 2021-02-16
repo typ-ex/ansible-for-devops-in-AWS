@@ -1,5 +1,7 @@
 ---
 - hosts: jenkins
+  become: yes
+  gather_facts: true
   
   vars:
     ansible_install_method: pip
@@ -15,4 +17,3 @@
     - geerlingguy.ansible
     - geerlingguy.java
     - geerlingguy.jenkins
-    

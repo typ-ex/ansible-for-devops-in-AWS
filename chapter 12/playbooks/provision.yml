@@ -37,3 +37,10 @@
         host_key_checking: false
       when: item.1.instances is defined
       with_indexed_items: "{{ created_instance.results }}"
+
+- hosts: jenkins
+  gather_facts: false
+  
+  tasks:
+    - name: EC2 is up and visible via ssh
+      wait_for_connection:
