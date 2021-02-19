@@ -1,5 +1,5 @@
 ---
-# Firewall settings
+git # Firewall settings
 firewall_allowed_tcp_ports:
   - "22"
   - "80"

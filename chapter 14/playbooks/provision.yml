@@ -6,28 +6,28 @@
   vars_files:
     - vars/aws.yml
   
-  tasks: Provision EC2 instance
-    - name: Provision webserver
-        ec2:
-          key_name: "{{ ssh_key }}"
-          instance_tags:
-            Name: "{{ item.name }}"
-            inventory_group: "{{ item.group }}"
-            inventory_host: "{{ item.name }}"
-          group: "{{ item.security_group }}"
-          instance_type: "{{ build_type }}"
-          image: "{{ image_os }}"
-          private_ip: "{{ item.private_address }}"
-          vpc_subnet_id: "{{ subnet_id }}"
-          wait: yes
-          wait_timeout: 500
-          exact_count: 1
-          count_tag:
-            inventory_host: "{{ item.name }}"
-          profile: "{{ boto_version }}"
-          region: "{{ aws_region }}"
-        register: created_instance
-        with_items: "{{ instance }}"
+  tasks: 
+    - name: Provision EC2 instance
+      ec2:
+        key_name: "{{ ssh_key }}"
+        instance_tags:
+          Name: "{{ item.name }}"
+          inventory_group: "{{ item.group }}"
+          inventory_host: "{{ item.name }}"
+        group: "{{ item.security_group }}"
+        instance_type: "{{ build_type }}"
+        image: "{{ image_os }}"
+        private_ip: "{{ item.private_address }}"
+        vpc_subnet_id: "{{ subnet_id }}"
+        wait: yes
+        wait_timeout: 500
+        exact_count: 1
+        count_tag:
+          inventory_host: "{{ item.name }}"
+        profile: "{{ boto_version }}"
+        region: "{{ aws_region }}"
+      register: created_instance
+      with_items: "{{ instance }}"
     
     - name: Add instance to inventory file
       add_host:
