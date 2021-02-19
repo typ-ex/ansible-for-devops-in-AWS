@@ -1,5 +1,6 @@
 ---
-- hosts: ssh
+- hosts: webserver
+  become: yes
 
   vars_files:
     - vars/main.yml
@@ -35,5 +36,5 @@
         src: templates/https.test.conf.j2
         dest: /etc/nginx/sites-enabled/https.test.conf
         mode: 0644
-        notify: restart nginx
+      notify: restart nginx
 

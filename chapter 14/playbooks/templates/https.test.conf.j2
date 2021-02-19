@@ -15,4 +15,5 @@ server {
 	root {{ nginx_docroot }};
 
 	ssl_certificate {{ certificate_dir }}/{{ server_hostname }}/fullchain.pem;
-	ssl_certificate_key {{ certificate_dir }}/{{ server_hostname }}/privkey.pem
+	ssl_certificate_key {{ certificate_dir }}/{{ server_hostname }}/privkey.pem;
+}
