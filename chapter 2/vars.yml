@@ -7,5 +7,7 @@ aws_region: us-east-1
 
 instances:
   - name: vagrant-chrony
-    group: "vagrant"
-    security_group: ["default"]
+    group:
+      - vagrant
+    security_group:
+      - default
