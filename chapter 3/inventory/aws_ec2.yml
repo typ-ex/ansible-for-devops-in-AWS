@@ -10,6 +10,3 @@ hostnames:
 keyed_groups:
   - key: tags.inventory_group
     separator: ''
-
-compose:
-  ansible_host: public_ip_address
