@@ -30,7 +30,7 @@
     - name: Add instance to inventory file
       add_host:
         name: "{{ item.1.tagged_instances.0.public_ip }}"
-        groups: "vagrant,{{ item.1.item.group }},{{ item.1.item.name }}"
+        groups: "{{ item.1.item.group }}"
         ansible_user: centos
         host_key_checking: false
       when: item.1.instances is defined
