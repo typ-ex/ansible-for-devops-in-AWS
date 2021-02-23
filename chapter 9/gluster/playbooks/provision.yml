@@ -42,7 +42,7 @@
     - name: Add instance to inventory file
       add_host:
         name: "{{ item.1.tagged_instances.0.private_ip }}"
-        group: "gluster,{{ item.1.item.group }},{{ item.1.item.name }}"
+        group: "{{ item.1.item.group }}"
         ansible_user: ubuntu
         host_key_checking: false
       when: item.1.instances is defined
