@@ -1,3 +1,4 @@
+---
 ssh_key: ansible
 build_type: t2.micro
 image_os: ami-03d315ad33b9d49c4
