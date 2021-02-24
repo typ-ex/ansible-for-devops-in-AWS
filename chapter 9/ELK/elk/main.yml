@@ -1,5 +1,5 @@
 ---
-- hosts: _logs
+- hosts: logs
   become: yes
   gather_facts: yes
 
