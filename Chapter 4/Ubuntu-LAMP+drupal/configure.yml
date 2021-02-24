@@ -161,4 +161,3 @@
         creates={{ drupal_core_path }}/web/sites/default/settings.php
       notify: restart apache
       become_user: www-data
-      
