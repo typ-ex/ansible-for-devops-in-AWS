@@ -13,7 +13,7 @@
         instance_tags:
           Name: "{{ item.name }}"
           inventory_group: "{{ item.group }}"
-          inventory_name: "{{ item.name }}"
+          inventory_host: "{{ item.name }}"
         group: "{{ security_group }}"
         instance_type: "{{ build_type }}"
         image: "{{ image_os }}"
