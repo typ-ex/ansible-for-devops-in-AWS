@@ -23,7 +23,7 @@
         wait_timeout: 500
         exact_count: 1
         count_tag:
-          inventory_ host: "{{  item.name }}"
+          inventory_host: "{{ item.name }}"
         profile: "{{ boto_version }}"
         region: "{{ aws_region }}"
       register: created_instance
