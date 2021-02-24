@@ -1,4 +1,4 @@
 ---
-  - import_playbook: playbooks/provision-aws.yml
-  - import_playbook: playbooks/provision-rails.yml
-  - import_playbook: playbooks/deploy.yml
+- import_playbook: playbooks/provision-aws.yml
+- import_playbook: playbooks/provision-rails.yml
+- import_playbook: playbooks/deploy.yml

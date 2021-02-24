@@ -1,3 +1,4 @@
+---
 # Variables for our app.
 app_version: 2.1.0
 app_directory: /opt/demo-rails-app
