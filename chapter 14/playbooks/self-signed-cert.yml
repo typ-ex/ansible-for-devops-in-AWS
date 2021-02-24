@@ -1,12 +1,12 @@
 ---
 - name: Ensure directory exists for local self-signed TLS certs.
   file:
-    path: "{{ certificate_dir }}/{{server_hostname }}"
+    path: "{{ certificate_dir }}/{{ server_hostname }}"
     state: directory
 
 - name: Generate an OpenSSL private key.
   openssl_privatekey:
-    path: "{{ certificate_dir }}/{{server_hostname }}/privkey.pem"
+    path: "{{ certificate_dir }}/{{ server_hostname }}/privkey.pem"
 
 - name: Generate an OpenSSL CSR.
   openssl_csr:

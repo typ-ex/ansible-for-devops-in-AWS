@@ -37,4 +37,3 @@
         dest: /etc/nginx/sites-enabled/https.test.conf
         mode: 0644
       notify: restart nginx
-
