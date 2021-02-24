@@ -9,4 +9,5 @@ instance:
   - name: lamp-drupal
     group:
       - ubuntu
-    security_group: ["default"]
+    security_group:
+      - default

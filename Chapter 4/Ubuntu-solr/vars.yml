@@ -9,4 +9,5 @@ instance:
   - name: solr
     group:
       - ubuntu
-    security_group: ["default"]
+    security_group:
+      - default
