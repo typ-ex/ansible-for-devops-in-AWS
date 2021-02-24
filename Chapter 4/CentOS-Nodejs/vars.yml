@@ -9,5 +9,5 @@ instance:
   - name: nodejs-app
     group:
       - centOS
-    security_group: ["default"]
-    
+    security_group:
+      - default
