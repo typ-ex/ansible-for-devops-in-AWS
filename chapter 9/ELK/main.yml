@@ -1,4 +1,4 @@
 ---
-  - import_playbook: provision.yml
-  - import_playbook: elk/main.yml
-  - import_playbook: web/main.yml
+- import_playbook: provision.yml
+- import_playbook: elk/main.yml
+- import_playbook: web/main.yml
