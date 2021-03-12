@@ -6,6 +6,12 @@
   vars_files:
   - vars.yml
 
+  pre-tasks:
+    - name: Ensure boto is installed.
+      pip:
+        name: boto3
+        state: present
+
   tasks:
     - name: Provision EC2 instance
       ec2:
