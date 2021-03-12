@@ -9,7 +9,7 @@
   pre_tasks:
     - name: Ensure boto is installed.
       pip:
-        name: boto3
+        name: boto
         state: present
 
   tasks:
