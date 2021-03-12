@@ -6,7 +6,7 @@
   vars_files:
   - vars.yml
 
-  pre-tasks:
+  pre_tasks:
     - name: Ensure boto is installed.
       pip:
         name: boto3
