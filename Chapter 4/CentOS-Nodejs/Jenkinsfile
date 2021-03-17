@@ -7,6 +7,10 @@ node('master') {
     sh "cd 'Chapter 4'"
   }
 
+  stage('Ensure setup can debug code') {
+    sh "ansible-playbook setup.yml"
+  }
+
   stage('Debugging submitted code') {
     sh "yamllint ."
     sh "ansible-playbook main.yml --syntax-check"
