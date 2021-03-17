@@ -10,22 +10,24 @@ node('master') {
   stage('Where am I?') {
     sh "ls -a"
   }
+  dir('Chapter 4/CentOS-Nodejs') {
+    stage('Ensure setup can debug code') {
+      sh "ansible-playbook setup.yml"
+    }
 
-  stage('Ensure setup can debug code') {
-    sh "ansible-playbook setup.yml"
-  }
+    stage('Debugging submitted code') {
+      sh "yamllint ."
+      sh "ansible-playbook main.yml --syntax-check"
+      sh "ansible-lint main.yml"
+    }
 
-  stage('Debugging submitted code') {
-    sh "yamllint ."
-    sh "ansible-playbook main.yml --syntax-check"
-    sh "ansible-lint main.yml"
-  }
+    stage('Build') {
+      sh "ansible-playbook provision.yml"
+    }
 
-  stage('Build') {
-    sh "ansible-playbook provision.yml"
-  }
+    stage('Provision') {
+      sh "ansible-playbook configure.yml"
+    }
 
-  stage('Provision') {
-    sh "ansible-playbook configure.yml"
-  }
+    }
 }
