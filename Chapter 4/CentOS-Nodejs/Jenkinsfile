@@ -4,7 +4,7 @@ node('master') {
   }
 
   stage('Where am I?') {
-    sh ls -a
+    sh "ls -a"
   }
 
   stage('Change to the appropriate directory') {
