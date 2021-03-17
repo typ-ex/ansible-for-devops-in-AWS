@@ -3,12 +3,7 @@ node('master') {
     git 'https://github.com/typ-ex/ansible-for-devops-in-aws.git'
   }
 
-  dir('Chapter 4/CentOS-Nodejs') {
-    
-    stage('Where am I?') {
-      sh "ls -a"
-    }
-    
+  dir('Chapter 4/CentOS-Nodejs') {    
     stage('Ensure setup can debug code') {
       sh "ansible-playbook setup.yml"
     }
@@ -26,6 +21,5 @@ node('master') {
     stage('Provision') {
       sh "ansible-playbook configure.yml"
     }
-
-    }
+  }
 }
