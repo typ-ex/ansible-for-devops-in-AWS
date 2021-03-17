@@ -3,6 +3,10 @@ node('master') {
     git 'https://github.com/typ-ex/ansible-for-devops-in-aws.git'
   }
 
+  stage('Where am I?') {
+    sh ls -a
+  }
+
   stage('Change to the appropriate directory') {
     sh "cd 'Chapter 4'/CentOS-Nodejs"
   }
