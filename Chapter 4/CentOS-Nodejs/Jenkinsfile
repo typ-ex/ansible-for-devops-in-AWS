@@ -4,7 +4,7 @@ node('master') {
   }
 
   stage('Change to the appropriate directory') {
-    sh "cd 'Chapter 4'"
+    sh "cd 'Chapter 4'/CentOS-Nodejs"
   }
 
   stage('Ensure setup can debug code') {
