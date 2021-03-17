@@ -10,5 +10,3 @@
           - yamllint
           - ansible-lint
         state: present
-    
-  
