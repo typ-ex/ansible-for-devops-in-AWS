@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Ensure debug tools are installed.
+      pip:
+        name:
+          - yamllint
+          - ansible-lint
+        state: present
