@@ -1,5 +1,5 @@
 node('master') {
-  state('Pull from SCM') {
+  stage('Pull from SCM') {
     git 'https://github.com/typ-ex/ansible-for-devops-in-aws.git'
   }
 
