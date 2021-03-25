@@ -1,6 +1,6 @@
 ---
 - hosts: ubuntu
-  become: yes
+  become: true
 
   vars_files:
     - playbook_vars.yml
@@ -127,6 +127,7 @@
         state: directory
         owner: www-data
         group: www-data
+        mode: 0600
 
     - name: Check if drupal project already exists.
       stat:
