@@ -127,7 +127,7 @@
         state: directory
         owner: www-data
         group: www-data
-        mode: 0660
+        mode: 0666
 
     - name: Check if drupal project already exists.
       stat:
