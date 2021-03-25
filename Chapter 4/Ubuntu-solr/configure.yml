@@ -7,11 +7,11 @@
 
   pre_tasks:
     - name: Update apt cache if needed.
-      apt: update_cache=true cache_valid_time=3600 upgrade=full
+      apt: update_cache=true cache_valid_time=3600
 
   tasks:
     - name: Install Java.
-      apt: name=openjdk-11-jdk state=present
+      apt: name=openjdk-11-jdk state=fixed
 
     - name: Download Solr.
       get_url:
