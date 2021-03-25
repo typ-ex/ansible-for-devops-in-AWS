@@ -4,10 +4,6 @@ node('master') {
   }
 
   dir('Chapter 4/Ubuntu-solr') {
-    stage('Ensure setup can debug code') {
-      sh "ansible-playbook setup.yml"
-    }
-
     stage('Debug submitted code') {
       sh "yamllint ."
       sh "ansible-playbook main.yml --syntax-check"
