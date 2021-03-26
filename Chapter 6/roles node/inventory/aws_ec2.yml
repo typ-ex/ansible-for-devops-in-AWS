@@ -10,4 +10,3 @@ hostnames:
 keyed_groups:
   - key: tags.inventory_group
     separator: ''
-

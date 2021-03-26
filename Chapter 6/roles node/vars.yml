@@ -11,4 +11,3 @@ instance:
       - centOS
     security_group:
       - default
-    

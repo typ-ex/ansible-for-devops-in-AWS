@@ -1,6 +1,6 @@
 ---
 - hosts: centOS
-  become: yes
+  become: true
 
   vars:
     node_apps_location: /usr/local/opt/node
@@ -18,14 +18,14 @@
       yum:
         name: "https://rpms.remirepo.net/enterprise/remi-release-7.rpm"
         state: present
-  
+
   roles:
     - nodejs
 
   tasks:
     - name: Ensure Node.js app folder exists.
       file: "path={{ node_apps_location }} state=directory"
-            
+   
     - name: Copy example Node.js app to server.
       copy: "src=app dest={{ node_apps_location }}"
 
