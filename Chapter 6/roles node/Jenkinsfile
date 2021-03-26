@@ -1,0 +1,25 @@
+node('master') {
+  stage('Starting pipeline') {
+    mail bcc: '', body: '$BUILD_TAG has started', cc: '', from: '', replyTo: '', subject: '$BUILD_TAG', to: 'thomas.vu.it@gmail.com'
+  }
+
+  stage('Pull from SCM') {
+    git 'https://github.com/typ-ex/ansible-for-devops-in-aws'
+  }
+
+  dir('Chapter 6/roles node') {
+    stage('Debug submitted code') {
+      sh "yamllint ."
+      sh "ansible-playbook main.yml --syntax-check"
+      sh "ansible-lint main.yml"
+    }
+
+    stage('Build') {
+      sh "ansible-playbook provision.yml"
+    }
+
+    stage('Deploy') {
+      sh "ansible-playbook configure.yml"
+    }
+  }
+}
