@@ -1,6 +1,6 @@
 node('master') {
   stage('Starting pipeline') {
-    mail bcc: '', body: ${env.BUILD_TAG}' has started', cc: '', from: '', replyTo: 'donotreply@madeupjenkinsserver.net', subject: '${env.BUILD_TAG}', to: 'thomas.vu.it@gmail.com'
+    mail bcc: '', body: '${env.BUILD_NUMBER} has started', cc: '', from: '', replyTo: 'donotreply@madeupjenkinsserver.net', subject: '${env.BUILD_TAG}', to: 'thomas.vu.it@gmail.com'
   }
 
   stage('Pull from SCM') {
