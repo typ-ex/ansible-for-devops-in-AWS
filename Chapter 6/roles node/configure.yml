@@ -25,7 +25,7 @@
   tasks:
     - name: Ensure Node.js app folder exists.
       file: "path={{ node_apps_location }} state=directory"
-   
+
     - name: Copy example Node.js app to server.
       copy: "src=app dest={{ node_apps_location }}"
 
