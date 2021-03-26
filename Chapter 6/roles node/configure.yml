@@ -24,10 +24,10 @@
 
   tasks:
     - name: Ensure Node.js app folder exists.
-      file: "path={{ node_apps_location }} state=directory"
+      file: "path={{ node_apps_location }} state=directory mode=0700"
 
     - name: Copy example Node.js app to server.
-      copy: "src=app dest={{ node_apps_location }}"
+      copy: "src=app dest={{ node_apps_location }} mode=preserve"
 
     - name: Install app dependencies defined in package.json.
       npm: path={{ node_apps_location }}/app
