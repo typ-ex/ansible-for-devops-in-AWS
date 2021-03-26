@@ -1,0 +1,21 @@
+node('master') {
+  stage('Pull from SCM') {
+    git 'https://github.com/typ-ex/ansible-for-devops-in-aws'
+  }
+
+  dir('Chapter 6'/'includes LAMP') {
+    stage('Debug submitted code') {
+      sh "yamllint ."
+      sh "ansible-playbook main.yml --syntax-check"
+      sh "ansible-lint main.yml"
+    }
+
+    stage('Build') {
+      sh "ansible-playbook provision.yml"
+    }
+
+    stage('Provision') {
+      sh "ansible-playbook configure.yml"
+    }
+  }
+}
