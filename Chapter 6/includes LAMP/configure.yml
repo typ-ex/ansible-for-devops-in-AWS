@@ -1,7 +1,7 @@
 ---
 - hosts: ubuntu
-  become: yes
-  
+  become: true
+
   vars_files:
     - playbook_vars.yml
 
