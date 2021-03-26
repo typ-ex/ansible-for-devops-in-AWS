@@ -15,7 +15,7 @@ node('master') {
     }
 
     stage('Provision') {
-      sh "ansible-playbook configure.yml"
+      sh "ansible-playbook configure.yml -vvv"
     }
   }
 }
