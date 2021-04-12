@@ -13,8 +13,8 @@ node('master') {
         sh "yamllint ."
         sh "ansible-playbook main.yml --syntax-check"
         sh "ansible-lint main.yml"
-      } catch(Exception exp) {
-        mail bcc: '', body: "Build #${env.BUILD_NUMBER} has failed \n println exp.getcause()", cc: '', from: 'DoNotReply', replyTo:'donotreply@madeupjenkinsserver.net', subject: "${env.BUILD_TAG}", to: 'thomas.vu.it@gmail.com'
+      } finally {
+        mail bcc: '', body: "Build #${env.BUILD_NUMBER} has failed \nprintln exp.getcause()", cc: '', from: 'DoNotReply', replyTo:'donotreply@madeupjenkinsserver.net', subject: "${env.BUILD_TAG}", to: 'thomas.vu.it@gmail.com'
       }
       }
     stage('Build') {
