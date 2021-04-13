@@ -37,4 +37,5 @@ node('master') {
           to: 'thomas.vu.it@gmail.com',
           subject: "Jenkins: ${JOB_NAME}"
       }
+  }
 }
