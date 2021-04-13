@@ -9,8 +9,8 @@ node('master') {
     git 'https://github.com/typ-ex/ansible-for-devops-in-aws'
   }
 
-  dir('chapter 9/ELK') {
-    try {
+  try {
+    dir('chapter 9/ELK') {
       stage('Debug incoming code') {
         sh "yamllint ."
         sh "ansible-playbook main.yml --syntax-check"
@@ -31,11 +31,11 @@ node('master') {
       stage('Provision web stack') {
         sh "ansible-playbook web/main.yml"
       }
+    }
   }
   finally {
-        emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.result}\nAttached is the build log",
-          to: 'thomas.vu.it@gmail.com',
-          subject: "Jenkins: ${JOB_NAME}"
-      }
-  }
+    emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.result}\nAttached is the build log",
+      to: 'thomas.vu.it@gmail.com',
+      subject: "Jenkins: ${JOB_NAME}"
+    }
 }
