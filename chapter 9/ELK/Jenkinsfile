@@ -1,6 +1,9 @@
 node('master') {
   stage('Starting pipeline') {
-    mail bcc: '', body: "Build #${env.BUILD_NUMBER} has started", cc: '', from: 'DoNotReply', replyTo: 'donotreply@madeupjenkinsserver.net', subject: "${env.BUILD_TAG}", to: 'thomas.vu.it@gmail.com'
+    emailext
+      body: "Build #${env.BUILD_NUMBER} has started",
+      to: 'thomas.vu.it@gmail.com',
+      subject: "${env.BUILD_TAG}"
   }
 
   stage('Pull from SCM') {
@@ -14,7 +17,10 @@ node('master') {
         sh "ansible-playbook main.yml --syntax-check"
         sh "ansible-lint main.yml"
       } finally {
-        mail bcc: '', body: "Build #${env.BUILD_NUMBER} has failed \nprintln exp.getcause()", cc: '', from: 'DoNotReply', replyTo:'donotreply@madeupjenkinsserver.net', subject: "${env.BUILD_TAG}", to: 'thomas.vu.it@gmail.com'
+        emailext attachLog: true,
+          body: "Build #${env.BUILD_NUMBER}: ${currentBuild.currentResult} Attached is the build log",
+          to: 'thomas.vu.it@gmail.com',
+          subject: "${env.BUILD_TAG}"
       }
       }
     stage('Build') {
