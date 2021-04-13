@@ -10,31 +10,31 @@ node('master') {
   }
 
   dir('chapter 9/ELK') {
-    stage('Debug incoming code') {
-      try {
+    try {
+      stage('Debug incoming code') {
         sh "yamllint ."
         sh "ansible-playbook main.yml --syntax-check"
         sh "ansible-lint main.yml"
-      } finally {
-        emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.result} Attached is the build log",
+      }
+      stage('Build') {
+        sh "ansible-playbook provision.yml"
+      }
+
+      stage('Ensure dependencies are installed') {
+        sh "ansible-galaxy install -r requirements.yml"
+      }
+
+      stage('Provision ELK stack') {
+        sh "ansible-playbook elk/main.yml"
+      }
+
+      stage('Provision web stack') {
+        sh "ansible-playbook web/main.yml"
+      }
+  }
+  finally {
+        emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.result}\nAttached is the build log",
           to: 'thomas.vu.it@gmail.com',
           subject: "Jenkins: ${JOB_NAME}"
       }
-      }
-    stage('Build') {
-      sh "ansible-playbook provision.yml"
-    }
-
-    stage('Ensure dependencies are installed') {
-      sh "ansible-galaxy install -r requirements.yml"
-    }
-
-    stage('Provision ELK stack') {
-      sh "ansible-playbook elk/main.yml"
-    }
-
-    stage('Provision web stack') {
-      sh "ansible-playbook web/main.yml"
-    }
-  }
 }
