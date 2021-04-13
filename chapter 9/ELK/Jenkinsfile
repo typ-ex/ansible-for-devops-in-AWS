@@ -9,33 +9,33 @@ node('master') {
     git 'https://github.com/typ-ex/ansible-for-devops-in-aws'
   }
 
-  try {
-    dir('chapter 9/ELK') {
-      stage('Debug incoming code') {
-        sh "yamllint ."
-        sh "ansible-playbook main.yml --syntax-check"
-        sh "ansible-lint main.yml"
-      }
-      stage('Build') {
-        sh "ansible-playbook provision.yml"
-      }
+  dir('chapter 9/ELK') {
+    stage('Debug incoming code') {
+      sh "yamllint ."
+      sh "ansible-playbook main.yml --syntax-check"
+      sh "ansible-lint main.yml"
+    }
 
-      stage('Ensure dependencies are installed') {
-        sh "ansible-galaxy install -r requirements.yml"
-      }
+    stage('Build') {
+      sh "ansible-playbook provision.yml"
+    }
 
-      stage('Provision ELK stack') {
-        sh "ansible-playbook elk/main.yml"
-      }
+    stage('Ensure dependencies are installed') {
+      sh "ansible-galaxy install -r requirements.yml"
+    }
 
-      stage('Provision web stack') {
-        sh "ansible-playbook web/main.yml"
-      }
+    stage('Provision ELK stack') {
+      sh "ansible-playbook elk/main.yml"
+    }
+
+    stage('Provision web stack') {
+      sh "ansible-playbook web/main.yml"
     }
   }
-  finally {
+
+  stage('Finishing pipeline') {
     emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.currentResult}\nAttached is the build log",
       to: 'thomas.vu.it@gmail.com',
       subject: "Jenkins: ${JOB_NAME}"
-    }
+  }
 }
