@@ -9,37 +9,45 @@ pipeline {
           subject: "Jenkins: ${JOB_NAME}"
       }
     }
-    dir('chapter 9/ELK'){
-      stage('Debug incoming code') {
-        steps {
-          echo 'Debug incoming code'
+    stage('Debug incoming code') {
+      steps {
+        echo 'Debug incoming code'
+        dir('chapter 9/ELK') {
           sh "yamllint ."
           sh "ansible-playbook main.yml --syntax-check"
           sh "ansible-lint main.yml"
         }
       }
-      stage('Build') {
-        steps {
+    }
+    stage('Build') {
+      steps {
+        dir('chapter 9/ELK'){
           echo 'Build'
           sh "ansible-playbook provision.yml"
         }
       }
-      stage('Ensure dependencies are installed') {
-        steps {
+    }
+    stage('Ensure dependencies are installed') {
+      steps {
+        dir('chapter9/ELK') {
           echo 'Ensure dependencies are installed'
           sh "ansible-galaxy install -r requirements.yml"
         }
       }
-      stage('Provision ELK stack') {
-        steps {
+    }
+    stage('Provision ELK stack') {
+      steps {
+        dir('chapter 9/ELK') {
           echo 'Provision ELK stack'
           sh "ansible-playbook elk/main.yml"
         }
       }
-      stage('Provision web stack') {
-        steps {
-          echo 'Provision web stack'
-          sh "ansible-playbook web/main.yml"
+    }
+    stage('Provision web stack') {
+      steps {
+        dir('chapter 9/ELK') {
+        echo 'Provision web stack'
+        sh "ansible-playbook web/main.yml"
         }
       }
     }
