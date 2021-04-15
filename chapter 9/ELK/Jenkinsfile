@@ -1,70 +1,53 @@
-pipeline {
-  agent any
-  stages {
-    stage('Starting pipeline') {
-      steps {
-        echo 'Starting pipeline'
-        emailext body: "Build #${env.BUILD_NUMBER} has started",
+node('master') {
+  stage('Starting pipeline') {
+    echo 'Starting pipeline'
+    emailext body: "Build #${env.BUILD_NUMBER} has started",
+      to: 'thomas.vu.it@gmail.com',
+      subject: "Jenkins: ${JOB_NAME}"
+  }
+
+  stage('Pull from SCM') {
+    echo 'Pull from SCM'
+    git 'https://github.com/typ-ex/ansible-for-devops-in-aws'
+  }
+
+  dir('chapter 9/ELK') {
+    stage('Debug incoming code') {
+      echo 'Debug incoming code'
+      try {
+        sh "yamllint ."
+        sh "ansible-playbook main.yml --syntax-check"
+        sh "ansible-lint main.yml"
+      }
+      catch(err) {
+        currentBuild.currentResult = 'FAILURE'
+      }
+      finally {
+        echo 'Sending results email'
+        emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.currentResult}\nAttached is the build log",
           to: 'thomas.vu.it@gmail.com',
           subject: "Jenkins: ${JOB_NAME}"
       }
     }
-    stage('Debug incoming code') {
-      steps {
-        echo 'Debug incoming code'
-        dir('chapter 9/ELK') {
-          sh "yamllint ."
-          sh "ansible-playbook main.yml --syntax-check"
-          sh "ansible-lint main.yml"
-        }
-      }
-    }
+
     stage('Build') {
-      steps {
-        dir('chapter 9/ELK'){
-          echo 'Build'
-          sh "ansible-playbook provision.yml"
-        }
-      }
+      echo 'Build'
+      sh "ansible-playbook provision.yml"
     }
+
     stage('Ensure dependencies are installed') {
-      steps {
-        dir('chapter9/ELK') {
-          echo 'Ensure dependencies are installed'
-          sh "ansible-galaxy install -r requirements.yml"
-        }
-      }
+      echo 'Ensure dependencies are installed'
+      sh "ansible-galaxy install -r requirements.yml"
     }
+
     stage('Provision ELK stack') {
-      steps {
-        dir('chapter 9/ELK') {
-          echo 'Provision ELK stack'
-          sh "ansible-playbook elk/main.yml"
-        }
-      }
+      echo 'Provision ELK stack'
+      sh "ansible-playbook elk/main.yml"
     }
+
     stage('Provision web stack') {
-      steps {
-        dir('chapter 9/ELK') {
-        echo 'Provision web stack'
-        sh "ansible-playbook web/main.yml"
-        }
-      }
-    }
-  }
-  post{
-    always {
-      echo 'Sending results email'
-    }
-    success {
-      emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.currentResult}\nAttached is the build log",
-      to: 'thomas.vu.it@gmail.com',
-      subject: "Jenkins: ${JOB_NAME}"
-    }
-    failure {
-      emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.currentResult}\nAttached is the build log",
-      to: 'thomas.vu.it@gmail.com',
-      subject: "Jenkins: ${JOB_NAME}"
+      echo 'Provision web stack'
+      sh "ansible-playbook web/main.yml"
     }
   }
 }
