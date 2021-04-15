@@ -32,8 +32,10 @@ node('master') {
       sh "ansible-playbook web/main.yml"
     }
   }
-}
 
-emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.currentResult}\nAttached is the build log",
-  to: 'thomas.vu.it@gmail.com',
-  subject: "Jenkins: ${JOB_NAME}"
+  stage('Sending results email') {
+    emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.currentResult}\nAttached is the build log",
+      to: 'thomas.vu.it@gmail.com',
+      subject: "Jenkins: ${JOB_NAME}"
+  }
+}
