@@ -1,39 +1,47 @@
 node('master') {
   stage('Starting pipeline') {
+    echo 'Starting pipeline'
     emailext body: "Build #${env.BUILD_NUMBER} has started",
       to: 'thomas.vu.it@gmail.com',
       subject: "Jenkins: ${JOB_NAME}"
   }
 
   stage('Pull from SCM') {
+    echo 'Pull from SCM'
     git 'https://github.com/typ-ex/ansible-for-devops-in-aws'
   }
 
   dir('chapter 9/ELK') {
     stage('Debug incoming code') {
+      echo 'Debug incoming code'
       sh "yamllint ."
       sh "ansible-playbook main.yml --syntax-check"
       sh "ansible-lint main.yml"
     }
 
     stage('Build') {
+      echo 'Build'
       sh "ansible-playbook provision.yml"
     }
 
     stage('Ensure dependencies are installed') {
+      echo 'Ensure dependencies are installed'
       sh "ansible-galaxy install -r requirements.yml"
     }
 
     stage('Provision ELK stack') {
+      echo 'Provision ELK stack'
       sh "ansible-playbook elk/main.yml"
     }
 
     stage('Provision web stack') {
+      echo 'Provision web stack'
       sh "ansible-playbook web/main.yml"
     }
   }
 
   stage('Sending results email') {
+    echo 'Sending results email'
     emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.currentResult}\nAttached is the build log",
       to: 'thomas.vu.it@gmail.com',
       subject: "Jenkins: ${JOB_NAME}"
