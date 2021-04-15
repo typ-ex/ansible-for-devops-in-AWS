@@ -20,11 +20,11 @@ node('master') {
         sh "ansible-lint main.yml"
       }
       catch(err) {
-        ${currentBuild.currentResult} = 'FAILURE'
+        currentBuild.result = 'FAILURE'
       }
       finally {
         echo 'Sending results email'
-        emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.currentResult}\nAttached is the build log",
+        emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.Result}\nAttached is the build log",
           to: 'thomas.vu.it@gmail.com',
           subject: "Jenkins: ${JOB_NAME}"
       }
