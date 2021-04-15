@@ -17,8 +17,8 @@ pipeline {
     }
     stage('Debug incoming code') {
       steps {
-        dir 'chapter 9/ELK'
         echo 'Debug incoming code'
+        dir 'chapter 9/ELK'
         sh "yamllint ."
         sh "ansible-playbook main.yml --syntax-check"
         sh "ansible-lint main.yml"
