@@ -54,13 +54,11 @@ pipeline {
     always {
       echo 'Sending results email'
     }
-
     success {
       emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.currentResult}\nAttached is the build log",
       to: 'thomas.vu.it@gmail.com',
       subject: "Jenkins: ${JOB_NAME}"
     }
-
     failure {
       emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.currentResult}\nAttached is the build log",
       to: 'thomas.vu.it@gmail.com',
