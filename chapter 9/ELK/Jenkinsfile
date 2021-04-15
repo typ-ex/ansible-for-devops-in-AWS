@@ -24,7 +24,7 @@ node('master') {
       }
       finally {
         echo 'Sending results email'
-        emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.Result}\nAttached is the build log",
+        emailext attachLog: true, body: "Build #${env.BUILD_NUMBER}: ${currentBuild.result}\nAttached is the build log",
           to: 'thomas.vu.it@gmail.com',
           subject: "Jenkins: ${JOB_NAME}"
       }
