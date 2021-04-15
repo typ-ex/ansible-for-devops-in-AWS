@@ -20,7 +20,7 @@ node('master') {
         sh "ansible-lint main.yml"
       }
       catch(err) {
-        currentBuild.currentResult = 'FAILURE'
+        ${currentBuild.currentResult} = 'FAILURE'
       }
       finally {
         echo 'Sending results email'
