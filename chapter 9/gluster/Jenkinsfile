@@ -1,7 +1,7 @@
 node('master') {
   stage('Starting pipeline') {
     echo 'Starting pipeline'
-    emailext body: "Build #${env.BUILD_NUMBER} has started"
+    emailext body: "Build #${env.BUILD_NUMBER} has started",
       to: 'thomas.vu.it@gmail.com',
       subject: "Jenkins: ${JOB_NAME}"
   }
