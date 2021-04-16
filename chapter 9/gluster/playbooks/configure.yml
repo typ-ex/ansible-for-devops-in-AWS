@@ -1,7 +1,7 @@
 ---
 - hosts: gluster
-  become: yes
-  
+  become: true
+
   vars_files:
     - config_vars.yml
 
@@ -11,9 +11,9 @@
 
   tasks:
     - name: Ensure Gluster brick and mount directories exist.
-      file: 
+      file:
         path: "{{ item }}"
-        state: directory 
+        state: directory
         mode: 0775
       with_items:
         - "{{ gluster_brick_dir }}"
@@ -27,7 +27,7 @@
         replicas: 2
         cluster: "{{ groups.gluster | join(',') }}"
         host: "{{ inventory_hostname }}"
-        force: yes
+        force: true
       run_once: true
 
     - name: Ensure Gluster volume is mounted.
