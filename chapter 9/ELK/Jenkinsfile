@@ -16,9 +16,8 @@ node('master') {
       stage('Debug incoming code') {
         echo 'Debug incoming code'
         sh "yamllint ."
-        sh "ansible-playbook main.yml --syntax-check"
         sh "ansible-lint main.yml"
-        }
+      }
 
       stage('Build') {
         echo 'Build'
@@ -28,6 +27,10 @@ node('master') {
       stage('Ensure dependencies are installed') {
         echo 'Ensure dependencies are installed'
         sh "ansible-galaxy install -r requirements.yml"
+      }
+
+      stage('Ensure playbook will run okay') {
+        sh "ansible-playbook main.yml --syntax-check"
       }
 
       stage('Provision ELK stack') {
