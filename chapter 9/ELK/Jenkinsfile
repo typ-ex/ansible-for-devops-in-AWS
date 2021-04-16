@@ -16,7 +16,6 @@ node('master') {
       stage('Debug incoming code') {
         echo 'Debug incoming code'
         sh "yamllint ."
-        sh "ansible-lint main.yml"
       }
 
       stage('Build') {
