@@ -23,4 +23,3 @@ instances:
       - default
     build_type: t2.micro
     private_address: 172.31.9.91
-    
