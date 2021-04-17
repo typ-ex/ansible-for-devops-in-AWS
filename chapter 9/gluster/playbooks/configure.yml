@@ -25,8 +25,10 @@
         name: "{{ gluster_brick_name }}"
         brick: "{{ gluster_brick_dir }}"
         replicas: 2
-        cluster: "{{ groups.gluster | join(',') }}"
-        host: "{{ inventory_hostname }}"
+        cluster:
+          - 172.31.23.2
+          - 172.31.23.3
+        host: 172.31.23.2
         force: true
       run_once: true
 
