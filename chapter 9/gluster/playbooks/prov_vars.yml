@@ -13,6 +13,7 @@ security_group:
         from_port: 22
         to_port: 22
         cidr_ip: 0.0.0.0/0
+        cidr_ipv6: ::/0
       - proto: tcp
         from_port: 111
         to_port: 111
