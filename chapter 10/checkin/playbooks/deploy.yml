@@ -1,7 +1,7 @@
 ---
 - hosts: checkin
-  gather_facts: no
-  become: yes
+  gather_facts: false
+  become: true
   serial: 2
 
   vars_files:
