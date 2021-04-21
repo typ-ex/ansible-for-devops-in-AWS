@@ -4,7 +4,7 @@
   gather_facts: false
 
   vars_files:
-  - vars/aws.yml
+    - vars/aws.yml
 
   tasks:
     - name: configure EC2 instance
