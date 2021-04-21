@@ -35,7 +35,7 @@ node('master') {
 
       stage('Provision rails app') {
         echo 'Provision rails app'
-        sh "ansible-playbook provision-rails.yml"
+        sh "ansible-playbook playbooks/provision-rails.yml"
       }
     }
   }
