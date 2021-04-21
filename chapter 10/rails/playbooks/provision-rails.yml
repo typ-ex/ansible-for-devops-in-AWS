@@ -1,6 +1,6 @@
 ---
 - hosts: rails
-  become: yes
+  become: true
 
   vars_files:
     - vars/rails.yml
@@ -14,12 +14,12 @@
   tasks:
     - name: Install app dependencies
       apt:
-        name: 
+        name:
           - libsqlite3-dev
           - libreadline-dev
           - tzdata
         state: present
-    
+
     - name: Ensure app directory exists and is writeable
       file:
         path: "{{ app_directory }}"
