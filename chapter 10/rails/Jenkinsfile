@@ -20,7 +20,7 @@ node('master') {
 
       stage('Build') {
         echo 'Build'
-        sh 'ansible-playbook playbooks/provision-aws.yml -vvv'
+        sh 'ansible-playbook playbooks/provision-aws.yml'
       }
 
       stage('Ensure dependencies are installed') {
