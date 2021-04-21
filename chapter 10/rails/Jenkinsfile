@@ -33,9 +33,14 @@ node('master') {
         sh "ansible-playbook playbooks/provision-rails.yml --syntax-check"
       }
 
-      stage('Provision rails app') {
+      stage('Provision rails server') {
         echo 'Provision rails app'
         sh "ansible-playbook playbooks/provision-rails.yml"
+      }
+
+      stage('Deploy rails app') {
+        echo 'Deploy rails app'
+        sh "ansible-playbook playbooks/deploy.yml"
       }
     }
   }
