@@ -14,7 +14,7 @@ instances:
     security_group:
       - default
     private_address: 172.31.4.2
-  
+
   - name: app2
     group:
       - app
