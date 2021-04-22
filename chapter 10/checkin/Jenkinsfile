@@ -30,7 +30,7 @@ node('master') {
       
       stage('Ensure playbook will run okay') {
         echo 'Ensure playbook will run okay'
-        sh "ansible-playbook playbooks/provision-checkin.yml --syntax-check"
+        sh "ansible-playbook main.yml --syntax-check"
         }
         
       stage('Provision checkin app') {
