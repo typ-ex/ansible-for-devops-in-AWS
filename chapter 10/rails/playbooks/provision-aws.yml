@@ -28,9 +28,3 @@
         region: "{{ aws_region }}"
       with_items: "{{ instance }}"
 
-- hosts: rails
-  gather_facts: false
-
-  tasks:
-    - name: EC2 is up and visible via ssh
-      wait_for_connection:

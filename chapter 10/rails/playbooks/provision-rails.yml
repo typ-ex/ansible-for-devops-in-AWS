@@ -12,6 +12,9 @@
     - geerlingguy.passenger
 
   tasks:
+    - name: EC2 is up and visible via ssh
+      wait_for_connection:
+
     - name: Install app dependencies
       apt:
         name:
