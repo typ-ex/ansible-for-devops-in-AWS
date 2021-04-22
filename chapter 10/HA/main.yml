@@ -1,3 +1,4 @@
 ---
 - import_playbook: playbooks/provision-aws.yml
 - import_playbook: playbooks/provision-HA.yml
+- import_playbook: playbooks/deploy.yml
