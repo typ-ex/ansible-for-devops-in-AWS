@@ -2,7 +2,6 @@
 - hosts: checkin
   gather_facts: false
   become: true
-  serial: 2
 
   vars_files:
     - vars/deploy.yml
