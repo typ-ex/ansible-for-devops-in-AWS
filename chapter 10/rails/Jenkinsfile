@@ -32,7 +32,7 @@ node('master') {
         sh "ansible-galaxy install -r requirements.yml"
       }
 
-      stage('Ensure playbook will run okay') {
+      stage('Ensure playbooks will run okay') {
         echo 'Ensure playbook will run okay'
         sh "ansible-playbook main.yml --syntax-check"
       }
