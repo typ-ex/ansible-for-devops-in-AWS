@@ -18,9 +18,13 @@ node('master') {
         sh "yamllint ."
       }
 
+      stage('Ensure build will indeed build') {
+        echo 'Ensure build will indeed build'
+        sh "ansible-playbook playbooks/provision-aws.yml --syntax-check"}
+
       stage('Build') {
         echo 'Build'
-        sh 'ansible-playbook playbooks/provision-aws.yml'
+        sh "ansible-playbook playbooks/provision-aws.yml"
       }
 
       stage('Ensure dependencies are installed') {

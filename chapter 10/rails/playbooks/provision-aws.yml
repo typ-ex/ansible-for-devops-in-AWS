@@ -27,4 +27,3 @@
         profile: "{{ boto_version }}"
         region: "{{ aws_region }}"
       with_items: "{{ instance }}"
-
