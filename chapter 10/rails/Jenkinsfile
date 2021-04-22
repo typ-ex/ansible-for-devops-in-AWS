@@ -38,8 +38,8 @@ node('master') {
       }
 
       stage('Provision rails server') {
-        echo 'Provision rails app'
-        sh "ansible-playbook playbooks/provision-rails.yml"
+        echo 'Provision rails server'
+        sh "ansible-playbook playbooks/provision-rails.yml -vvv"
       }
 
       stage('Deploy rails app') {
