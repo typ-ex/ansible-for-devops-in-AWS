@@ -27,3 +27,10 @@
         profile: "{{ boto_version }}"
         region: "{{ aws_region }}"
       with_items: "{{ instance }}"
+
+- hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Everything is up and visible via ssh
+      wait_for_connection:
