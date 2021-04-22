@@ -37,8 +37,13 @@ node('master') {
         echo 'Provision checkin app'
         sh "ansible-playbook playbooks/provision-checkin.yml"
         }
+
+      stage('Deploy checkin app') {
+        echo 'Deploy checkin app'
+        sh "ansible-playbook playbooks/deploy.yml"
       }
     }
+  }
   catch(err) {
     currentBuild.result = 'FAILURE'
     throw err
