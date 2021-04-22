@@ -28,6 +28,15 @@
         region: "{{ aws_region }}"
       with_items: "{{ instance }}"
 
+    - name: Add instance to inventory file
+      add_host:
+        name: "{{ item.1.tagged_instances.0.public_ip }}"
+        group: "{{ item.1.item.group }}"
+        ansible_user: ubuntu
+        host_key_checking: false
+      when: item.1.instances is defined
+      with_indexed_items: "{{ created_instances.results }}"
+
 - hosts: rails
   gather_facts: false
 
